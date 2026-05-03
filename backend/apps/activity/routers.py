@@ -43,7 +43,7 @@ def activity_to_detail(a: Activity) -> dict:
     return base
 
 
-@router.get("", response=dict)
+@router.get("", response=dict, summary="活动列表", description="按状态和分类筛选活动列表，支持分页")
 def list_activities(
     request,
     pagination: PaginationParams = Query(...),
@@ -73,7 +73,7 @@ def list_activities(
     }
 
 
-@router.get("/{activity_id}", response=dict)
+@router.get("/{activity_id}", response=dict, summary="活动详情", description="根据活动ID获取活动详细信息")
 def get_activity(request, activity_id: int):
     try:
         a = Activity.objects.get(id=activity_id)

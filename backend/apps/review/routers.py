@@ -8,7 +8,7 @@ from .schemas import CreateReviewRequest
 router = Router()
 
 
-@router.get("", response=dict)
+@router.get("", response=dict, summary="评价列表", description="根据活动ID获取评价列表，支持分页")
 def list_reviews(request, activity_id: int, pagination: PaginationParams = Query(...)):
     qs = Review.objects.filter(activity_id=activity_id).order_by("-created_time")
     total = qs.count()
@@ -33,7 +33,7 @@ def list_reviews(request, activity_id: int, pagination: PaginationParams = Query
     }
 
 
-@router.post("", response=dict, auth=BearerAuth())
+@router.post("", response=dict, auth=BearerAuth(), summary="提交评价", description="对活动提交评价，一个订单仅可评价一次")
 def create_review(request, body: CreateReviewRequest):
     payload = request.auth
     try:

@@ -23,7 +23,7 @@ def order_to_dict(o):
     }
 
 
-@router.post("", response=dict)
+@router.post("", response=dict, summary="创建订单", description="创建新订单并返回模拟支付参数")
 def create_order(request, body: CreateOrderRequest):
     payload = request.auth
     order = Order.objects.create(
@@ -43,7 +43,7 @@ def create_order(request, body: CreateOrderRequest):
     }
 
 
-@router.get("", response=dict)
+@router.get("", response=dict, summary="订单列表", description="获取当前用户的订单列表，支持分页")
 def list_orders(request, pagination: PaginationParams = Query(...)):
     payload = request.auth
     qs = Order.objects.filter(user_id=payload["user_id"]).order_by("-created_time")
@@ -53,21 +53,21 @@ def list_orders(request, pagination: PaginationParams = Query(...)):
     return {"success": True, "data": {"list": [order_to_dict(o) for o in orders], "total": total}}
 
 
-@router.get("/{order_id}", response=dict)
+@router.get("/{order_id}", response=dict, summary="订单详情", description="根据订单ID获取订单详细信息")
 def get_order(request, order_id: int):
     payload = request.auth
     order = get_object_or_404(Order, id=order_id, user_id=payload["user_id"])
     return {"success": True, "data": order_to_dict(order)}
 
 
-@router.post("/pay-callback", response=dict, auth=None)
+@router.post("/pay-callback", response=dict, auth=None, summary="支付回调（模拟）", description="模拟微信支付回调，将订单状态更新为已付款")
 def pay_callback(request, body: PayCallbackRequest):
     order = get_object_or_404(Order, id=body.order_id)
     simulate_pay_callback(order)
     return {"success": True, "data": {"status": order.status}}
 
 
-@router.post("/{order_id}/refund", response=dict)
+@router.post("/{order_id}/refund", response=dict, summary="申请退款", description="对指定订单发起退款")
 def refund_order(request, order_id: int):
     payload = request.auth
     order = get_object_or_404(Order, id=order_id, user_id=payload["user_id"])

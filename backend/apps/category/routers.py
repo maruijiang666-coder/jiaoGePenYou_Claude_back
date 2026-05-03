@@ -4,7 +4,7 @@ from .models import Category
 router = Router()
 
 
-@router.get("", response=dict)
+@router.get("", response=dict, summary="分类列表", description="获取所有分类，按类型和排序值排列")
 def list_categories(request):
     categories = Category.objects.all().order_by("type", "sort")
     return {

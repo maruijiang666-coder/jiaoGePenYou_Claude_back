@@ -1,6 +1,6 @@
-from ninja import Schema
+from ninja import Schema, Field
 
 
 class PaginationParams(Schema):
-    page: int = 1
-    page_size: int = 20
+    page: int = Field(1, description="页码")
+    page_size: int = Field(20, description="每页数量")

@@ -6,7 +6,7 @@ from .services import login_with_code
 router = Router()
 
 
-@router.post("/login", response={200: dict, 400: dict})
+@router.post("/login", response={200: dict, 400: dict}, summary="微信登录", description="使用微信小程序 code 换取用户信息和 JWT 令牌")
 def login(request, body: LoginRequest):
     user, is_new = login_with_code(body.code)
     token = create_token(user.id, user.openid)
