@@ -7,10 +7,8 @@ api = NinjaAPI(
     docs_url="/api/docs",
 )
 
-# Routers will be added in later tasks:
-# from apps.auth_app.routers import router as auth_router
-# api.add_router("/auth", auth_router, tags=["认证"])
-# ...
+from apps.auth_app.routers import router as auth_router
+api.add_router("/auth", auth_router, tags=["认证"])
 
 urlpatterns = [
     path("api/", api.urls),
