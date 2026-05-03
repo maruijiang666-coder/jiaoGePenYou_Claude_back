@@ -1,4 +1,4 @@
-from ninja import Router
+from ninja import Router, Query
 from django.shortcuts import get_object_or_404
 from core.auth import BearerAuth
 from core.pagination import PaginationParams
@@ -44,7 +44,7 @@ def create_order(request, body: CreateOrderRequest):
 
 
 @router.get("", response=dict)
-def list_orders(request, pagination: PaginationParams):
+def list_orders(request, pagination: PaginationParams = Query(...)):
     payload = request.auth
     qs = Order.objects.filter(user_id=payload["user_id"]).order_by("-created_time")
     total = qs.count()

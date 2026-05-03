@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git remote *)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(python manage.py makemigrations auth_app)",
+      "Bash(python manage.py migrate)",
+      "Bash(pip install *)",
+      "Bash(python manage.py makemigrations auth_app activity theme category config_app)",
+      "Bash(python -c \"import os; os.environ['DJANGO_SETTINGS_MODULE']='config.settings'; import django; django.setup\\(\\); print\\('OK'\\)\")",
+      "Bash(python -c \"import django; import os; os.environ['DJANGO_SETTINGS_MODULE']='config.settings'; import django; django.setup\\(\\); from django.urls import get_resolver; r = get_resolver\\(\\); print\\('URL conf OK'\\); from django.apps import apps; print\\('Apps:', [a.label for a in apps.get_app_configs\\(\\)]\\)\")",
+      "Bash(docker --version)",
+      "Bash(docker compose version *)",
+      "Bash(docker compose *)",
+      "Bash(curl -s http://localhost/api/docs)",
+      "Bash(curl *)"
+    ]
+  }
+}

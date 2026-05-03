@@ -1,4 +1,4 @@
-from ninja import Router
+from ninja import Router, Query
 from django.db import IntegrityError
 from core.auth import BearerAuth
 from core.pagination import PaginationParams
@@ -9,7 +9,7 @@ router = Router()
 
 
 @router.get("", response=dict)
-def list_reviews(request, activity_id: int, pagination: PaginationParams):
+def list_reviews(request, activity_id: int, pagination: PaginationParams = Query(...)):
     qs = Review.objects.filter(activity_id=activity_id).order_by("-created_time")
     total = qs.count()
     offset = (pagination.page - 1) * pagination.page_size

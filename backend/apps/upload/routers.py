@@ -1,8 +1,12 @@
-from ninja import Router, UploadedFile, File
+from ninja import Router, UploadedFile, File, Schema
 from core.auth import BearerAuth
 from .services import upload_file, delete_file
 
 router = Router(auth=BearerAuth())
+
+
+class DeleteRequest(Schema):
+    object_name: str
 
 
 @router.post("", response=dict)
@@ -17,7 +21,7 @@ def upload_batch(request, files: list[UploadedFile] = File(...), category: str =
     return {"success": True, "data": {"urls": urls}}
 
 
-@router.delete("/{object_name:path}", response=dict)
-def remove_file(request, object_name: str):
-    delete_file(object_name)
+@router.delete("", response=dict)
+def remove_file(request, body: DeleteRequest):
+    delete_file(body.object_name)
     return {"success": True, "data": None}

@@ -1,6 +1,6 @@
-from ninja import Query
+from ninja import Schema
 
 
-class PaginationParams(Query):
+class PaginationParams(Schema):
     page: int = 1
     page_size: int = 20
