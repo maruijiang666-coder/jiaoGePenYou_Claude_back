@@ -40,6 +40,6 @@ def docs_redirect(request):
 
 
 urlpatterns = [
-    path("api/", api.urls),
     path("api/docs", docs_redirect),
+    path("api/", api.urls),
 ]
