@@ -14,3 +14,15 @@ class User(models.Model):
 
     class Meta:
         db_table = "users"
+
+
+class AdminUser(models.Model):
+    username = models.CharField(max_length=50, unique=True)
+    password = models.CharField(max_length=255)
+    role = models.CharField(max_length=20, default="admin")
+    is_active = models.BooleanField(default=True)
+    created_time = models.DateTimeField(auto_now_add=True)
+    updated_time = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = "admin_users"
