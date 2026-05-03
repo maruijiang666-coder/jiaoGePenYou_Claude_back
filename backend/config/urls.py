@@ -1,4 +1,5 @@
 from django.urls import path
+from django.shortcuts import redirect
 from ninja import NinjaAPI
 
 api = NinjaAPI(
@@ -33,6 +34,12 @@ api.add_router("/orders", order_router, tags=["订单"])
 api.add_router("/reviews", review_router, tags=["评价"])
 api.add_router("/upload", upload_router, tags=["上传"])
 
+
+def docs_redirect(request):
+    return redirect("/api/docs/")
+
+
 urlpatterns = [
     path("api/", api.urls),
+    path("api/docs", docs_redirect),
 ]

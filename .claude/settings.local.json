@@ -14,7 +14,8 @@
       "Bash(docker compose version *)",
       "Bash(docker compose *)",
       "Bash(curl -s http://localhost/api/docs)",
-      "Bash(curl *)"
+      "Bash(curl *)",
+      "Bash(git push *)"
     ]
   }
 }
